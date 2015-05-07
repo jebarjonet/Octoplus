@@ -1,6 +1,6 @@
 {
   "name": "Octoplus",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "server/server.js",
   "scripts": {
@@ -26,6 +26,7 @@
     "lodash": "^3.7.0",
     "morgan": "~1.5.1",
     "react": "^0.13.2",
+    "react-router": "^0.13.3",
     "reactify": "^1.1.0",
     "vinyl-source-stream": "^1.1.0"
   },

@@ -3,6 +3,7 @@ node_modules/
 bower_components/
 public/assets/css/
 public/assets/js/
+public/bundle.js
 *~
 *.log
 *.lock
