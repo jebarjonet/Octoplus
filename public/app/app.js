@@ -1,13 +1,10 @@
 var React = require('react');
 var Router = require('react-router');
-
-var DefaultRoute = Router.DefaultRoute;
-var Link = Router.Link;
-var Route = Router.Route;
-var RouteHandler = Router.RouteHandler;
+var Routes = require('./routes.js');
 
 // Test of React Router
 
+/*
 var App = React.createClass({
 	render: function () {
 		return (
@@ -84,17 +81,8 @@ var Message = React.createClass({
 		);
 	}
 });
+*/
 
-var routes = (
-	<Route name="app" path="/" handler={App}>
-		<Route name="inbox" path="inbox" handler={Inbox}>
-			<Route name="inbox.messages" path="messages/:id" handler={Message}/>
-		</Route>
-		<Route name="calendar" handler={Calendar}/>
-		<DefaultRoute handler={Dashboard}/>
-	</Route>
-);
-
-Router.run(routes, Router.HistoryLocation, function (Handler) {
+Router.run(Routes, Router.HistoryLocation, function (Handler) {
 	React.render(<Handler/>, document.getElementById('container'));
 });

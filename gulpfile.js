@@ -47,7 +47,7 @@ gulp.task('jshint', function() {
             console.error(err.message);
             this.end();
         })
-        .pipe(jshint())
+        .pipe(jshint({esnext: true}))
         .pipe(jshint.reporter('jshint-stylish'));
     
     if (process.env.CI) {

@@ -1,0 +1,10 @@
+.nav.nav-pills a {
+    &.active {
+        color: #fff;
+        background-color: #337ab7;
+    }
+
+    &.important {
+        background-color: #5bc0de;
+    }
+}
