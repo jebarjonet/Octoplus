@@ -29,6 +29,7 @@
     "react-form-data": "^0.2.3",
     "react-router": "^0.13.3",
     "reactify": "^1.1.0",
+    "reflux": "^0.2.7",
     "vinyl-source-stream": "^1.1.0"
   },
   "devDependencies": {

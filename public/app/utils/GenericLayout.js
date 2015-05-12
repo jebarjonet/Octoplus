@@ -7,22 +7,22 @@ var RouteHandler = Router.RouteHandler;
 
 var GenericLayout = React.createClass({
     getInitialState: function() {
+        var links = this.props.links;
         if(this.props.name) {
             var name = this.props.name;
-            var links = {};
-            links[name+'List'] = 'Liste';
-            return {
-                links: links
-            };
+            var generatedLinks = {};
+            generatedLinks[name+'.list'] = 'Liste';
+            generatedLinks[name+'.add'] = 'Ajouter';
+            links = _.assign(generatedLinks, links);
         }
         return {
-            links: this.props.links
+            links: links
         };
     },
     render: function() {
         return (
             <div className="row">
-                <div className="col-sm-2">
+                <div className="col-sm-3 col-md-2">
                     <ul className="nav nav-pills nav-stacked">
                         {
                             _.map(this.state.links, function(name, link) {
@@ -31,7 +31,7 @@ var GenericLayout = React.createClass({
                         }
                     </ul>
                 </div>
-                <div className="col-sm-10">
+                <div className="col-sm-9 col-md-10">
                     <RouteHandler/>
                 </div>
             </div>

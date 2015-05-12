@@ -8,14 +8,18 @@ var Home = React.createClass({
     render: function() {
         return (
             <div className="container" style={{marginTop: '30px'}}>
-                <img className="pull-right" style={{height: '120px'}} src="http://media.giphy.com/media/I0ROdXqhDmGE8/giphy.gif"/>
-                <br/>
-                <ul className="nav nav-pills" style={{marginBottom: '10px'}}>
-                    <li><Link to="home" className="important">Accueil</Link></li>
-                    <li><Link to="places">Lieux</Link></li>
-                    <li><Link to="categories">Catégories</Link></li>
-                </ul>
-                <p className="text-muted">Logged in as <b>Dumbledore</b></p>
+                <nav className="navbar navbar-default">
+                    <div className="container">
+                    <div className="navbar-header">
+                        <Link to="home" className="navbar-brand">Admin</Link>
+                    </div>
+                        <ul className="nav navbar-nav">
+                            <li><Link to="places">Lieux</Link></li>
+                            <li><Link to="categories">Catégories</Link></li>
+                        </ul>
+                    </div>
+                </nav>
+                <p className="text-muted" style={{marginTop: '8px', marginBottom: '15px'}}>Logged in as <b>Dumbledore</b></p>
 
                 <RouteHandler/>
             </div>

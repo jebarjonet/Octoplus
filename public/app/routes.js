@@ -11,17 +11,19 @@ var CategoriesList = require('./components/categories/List.react');
 var PlacesLayout = require('./components/places/Layout.react');
 var PlacesList = require('./components/places/List.react');
 
-var objects = ['categories', 'places'];
+var APIUtils = require('./utils/APIutils');
 
 var routes = (
     <Route name="home" path="/" handler={Home}>
         {
-            objects.map(function(object) {
+            APIUtils.objects.map(function(object) {
                 var Layout = require('./components/'+object+'/Layout.react');
                 var List = require('./components/'+object+'/List.react');
                 return (
                     <Route name={object} path={object} handler={Layout}>
-                        <Route name={object + 'List'} path="list" handler={List}/>
+                        <Route name={object + '.list'} path="list" handler={List}/>
+                        <Route name={object + '.add'} path="add" handler={List}/>
+                        <Route name={object + '.edit'} path="edit/:id" handler={List}/>
                         <DefaultRoute handler={List}/>
                     </Route>
                 );

@@ -1,13 +1,13 @@
 var React = require('react');
+var Reflux = require('reflux');
+var PlacesStore = require('../../stores/GenericStore').PlacesStore;
+var GenericList = require('../../utils/GenericList');
 
 var List = React.createClass({
+    mixins: [Reflux.connect(PlacesStore,"list")],
     render: function() {
         return (
-            <ul>
-                <li>Deux</li>
-                <li>Deux</li>
-                <li>Deux</li>
-            </ul>
+            <GenericList name="places" list={this.state.list} attributes={['name']} />
         );
     }
 });
