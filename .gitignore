@@ -2,6 +2,7 @@
 node_modules/
 bower_components/
 public/assets/css/
+public/assets/fonts/
 public/assets/js/
 public/bundle.js
 *~
