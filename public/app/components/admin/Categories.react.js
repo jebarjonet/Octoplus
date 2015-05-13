@@ -30,7 +30,7 @@ exp.Add = React.createClass({
     render: function() {
         return (
             <Form
-                title={'Ajouter une '+ object.friendlyName}
+                title={'Add a '+ object.friendlyName}
                 fields={object.form}
                 onSubmit={this.submit}
             />

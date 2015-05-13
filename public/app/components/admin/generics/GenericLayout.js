@@ -11,8 +11,8 @@ var GenericLayout = React.createClass({
         if(this.props.name) {
             var name = this.props.name;
             var generatedLinks = {};
-            generatedLinks[name+'.list'] = 'Liste';
-            generatedLinks[name+'.add'] = 'Ajouter';
+            generatedLinks[name+'.list'] = 'List';
+            generatedLinks[name+'.add'] = 'Add';
             links = _.assign(generatedLinks, links);
         }
         return {

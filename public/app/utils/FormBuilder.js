@@ -13,7 +13,7 @@ var Form = React.createClass({
     componentDidMount: function() {
         var self = this;
         // Front errors highlighting
-        $('form').on('keyup change', ':input', function() {
+        $('form').on('keydown keyup change blur', ':input', function() {
             if($(this).val()) {
                 $(this).addClass('dirty');
             } else if(!$(this).prop('required')) {
@@ -54,7 +54,7 @@ var Form = React.createClass({
                 }
                 {
                     _.size(this.props.fields) > 0 ?
-                    <button type="submit" className="btn btn-default">Envoyer</button>:
+                    <button type="submit" className="btn btn-default">Send</button>:
                     null
                 }
             </form>

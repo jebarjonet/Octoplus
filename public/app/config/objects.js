@@ -5,7 +5,7 @@ module.exports = exp;
 
 var model = {
     name: 'defaultName',
-    friendlyName: 'nom par défaut',
+    friendlyName: 'default name',
     layout: {},
     list: {},
     form: {}
@@ -13,7 +13,7 @@ var model = {
 
 exp.categories = _.assign(_.cloneDeep(model), {
     name: 'categories',
-    friendlyName: 'catégorie',
+    friendlyName: 'category',
     list: {
         params: [
             '_id',
@@ -30,14 +30,14 @@ exp.categories = _.assign(_.cloneDeep(model), {
     form: {
         name: {
             type: 'string',
-            label: 'Nom',
+            label: 'Name',
             params: {
                 required: true
             }
         },
         color: {
             type: 'color',
-            label: 'Couleur',
+            label: 'Color',
             params: {
                 required: true
             }
@@ -47,7 +47,7 @@ exp.categories = _.assign(_.cloneDeep(model), {
 
 exp.places = _.assign(_.cloneDeep(model), {
     name: 'places',
-    friendlyName: 'lieu',
+    friendlyName: 'place',
     list: {
         params: [
             'name'
