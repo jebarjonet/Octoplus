@@ -17,10 +17,11 @@ var routes = (
             _.map(Objects, function(object) {
                 var Layout = require('../components/admin/'+_.capitalize(object.name)+'.react').Layout;
                 var List = require('../components/admin/'+_.capitalize(object.name)+'.react').List;
+                var Add = require('../components/admin/'+_.capitalize(object.name)+'.react').Add;
                 return (
                     <Route name={object.name} path={object.name} handler={Layout}>
                         <Route name={object.name + '.list'} path="list" handler={List}/>
-                        <Route name={object.name + '.add'} path="add" handler={List}/>
+                        <Route name={object.name + '.add'} path="add" handler={Add}/>
                         <Route name={object.name + '.edit'} path="edit/:id" handler={List}/>
                         <DefaultRoute handler={List}/>
                     </Route>

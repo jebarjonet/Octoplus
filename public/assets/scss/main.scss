@@ -9,3 +9,15 @@ body { padding-top: 70px; }
     color: #fff !important;
     background-color: #080808 !important;
 }
+
+form {
+	*:not(button).dirty {
+		&:valid {
+			border: solid 1px green !important;
+		}
+
+		&:invalid {
+			border: solid 1px red !important;
+		}
+	}
+}

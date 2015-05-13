@@ -32,7 +32,8 @@ var FormTest = React.createClass({
                             choices: {
                                 fr: 'France',
                                 en: 'England'
-                            }
+                            },
+                            required: true
                         }
                     },
                     button: {
@@ -65,9 +66,8 @@ var FormTest = React.createClass({
                 }}
                 data={{
                     string: 'hello',
-                    email: 'jeanjacques@lol.fr',
+                    email: 'mail@mail.fr',
                     select: 'en',
-                    radio: 'm',
                     checkbox: ['b']
                 }}
             >

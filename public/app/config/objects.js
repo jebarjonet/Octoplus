@@ -26,12 +26,28 @@ exp.categories = _.assign(_.cloneDeep(model), {
             },
             'name'
         ]
+    },
+    form: {
+        name: {
+            type: 'string',
+            label: 'Nom',
+            params: {
+                required: true
+            }
+        },
+        color: {
+            type: 'color',
+            label: 'Couleur',
+            params: {
+                required: true
+            }
+        }
     }
 });
 
 exp.places = _.assign(_.cloneDeep(model), {
     name: 'places',
-    friendlyName: 'lieux',
+    friendlyName: 'lieu',
     list: {
         params: [
             'name'

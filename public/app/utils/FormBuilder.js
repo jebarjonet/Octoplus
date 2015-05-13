@@ -6,19 +6,35 @@ var FormData = require('react-form-data');
 var Form = React.createClass({
     mixins: [ FormData ],
     componentWillMount: function() {
-        this.formData = this.props.data;
+        this.formData = this.props.data ?
+            this.props.data:
+            {};
+    },
+    componentDidMount: function() {
+        var self = this;
+        // Front errors highlighting
+        $('form').on('keyup change', ':input', function() {
+            if($(this).val()) {
+                $(this).addClass('dirty');
+            } else if(!$(this).prop('required')) {
+                $(this).removeClass('dirty');
+            }
+        });
     },
     formDataDidChange: function() {
-        // TODO error handling
-        console.log(this.formData);
+        // TODO backend error handling
+        // console.log(this.formData);
     },
     render: function() {
-        // TODO automatic Bootstrap layout
-        
         return (
             <form onSubmit={this.submit} onChange={this.updateFormData}>
-                <h1>Form</h1>
                 {
+                    this.props.title ?
+                    <h1>{this.props.title}</h1>:
+                    null
+                }
+                {
+                    _.size(this.props.fields) > 0 ?
                     _.map(this.props.fields, function(field, key) {
                         if(!field.params)
                             field.params = {};
@@ -33,17 +49,21 @@ var Form = React.createClass({
                                 <Input type={field.type} params={field.params} />
                             </div>
                         );
-                    }, this)
+                    }, this):
+                    <p>Ce formulaire n'est pas encore configuré</p>
                 }
-
-                <button type="submit" className="btn btn-default">Envoyer</button>
+                {
+                    _.size(this.props.fields) > 0 ?
+                    <button type="submit" className="btn btn-default">Envoyer</button>:
+                    null
+                }
             </form>
         );
     },
     submit: function(e) {
+        var self = this;
         e.preventDefault();
-        console.log(this.formData);
-        this.props.onSubmit('test');
+        this.props.onSubmit(this.formData);
     }
 });
 
@@ -88,7 +108,25 @@ var Input = React.createClass({
             case 'radio':
             case 'checkbox':
                 if(params.choices) {
+                    // select first one if no selected for radio buttons
+                    if(type === 'radio') {
+                        var hasSelected = _.find(params.choices, function(name, value) {
+                            return value === params.defaultValue;
+                        });
+                        if(hasSelected === undefined) {
+                            params.defaultValue = Object.keys(params.choices)[0];
+                        }
+                    }
+
                     _.forEach(params.choices, function(name, value) {
+                        var defaultChecked = false;
+                        if(params.defaultValue) {
+                            if(type === 'radio') {
+                                defaultChecked = params.defaultValue === value ? true : false;
+                            } else {
+                                defaultChecked = ~params.defaultValue.indexOf(value) ? true : false;
+                            }
+                        }
                         childs.push(
                             React.createElement("div",
                             {
@@ -105,7 +143,7 @@ var Input = React.createClass({
                                             id: type+'_'+value,
                                             value: value,
                                             name: params.name,
-                                            defaultChecked: ~params.defaultValue.indexOf(value) ? true : false
+                                            defaultChecked: defaultChecked
                                         }
                                     ),
                                     name
@@ -135,14 +173,18 @@ var Input = React.createClass({
                 type = 'input';
         }
 
-        if(params.choices)
+        if(params.choices) {
             delete params.choices;
+        }
         
         // class
-        if(framed)
+        if(framed) {
             params.className += cx('form-control');
+        }
 
-        if(!childs.length) childs = null;
+        if(!childs.length) {
+            childs = null;
+        }
 
         return [type, params, childs];
     }

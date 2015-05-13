@@ -1,5 +1,6 @@
 var React = require('react');
 var Reflux = require('reflux');
+var Form = require('../../utils/FormBuilder');
 var PlacesStore = require('../../stores/GenericStore').PlacesStore;
 var GenericLayout = require('./generics/GenericLayout');
 var GenericList = require('./generics/GenericList');
@@ -22,5 +23,20 @@ exp.List = React.createClass({
         return (
             <GenericList name={object.name} list={this.state.list} params={object.list.params} />
         );
+    }
+});
+
+exp.Add = React.createClass({
+    render: function() {
+        return (
+            <Form
+                title={'Ajouter un '+ object.friendlyName}
+                fields={object.form}
+                onSubmit={this.submit}
+            />
+        );
+    },
+    submit: function(data) {
+        console.log(data);
     }
 });
