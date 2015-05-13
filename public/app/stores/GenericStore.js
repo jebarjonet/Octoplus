@@ -1,16 +1,17 @@
 var Reflux = require('reflux');
 var _ = require('lodash');
 var APIActions = require('../actions/APIActions');
-var APIUtils = require('../utils/APIutils');
+var APIutils = require('../utils/APIutils');
+var Objects = require('../config/objects');
 
 var exp = {};
 module.exports = exp;
 
-APIUtils.objects.forEach(function(object) {
-    exp[_.capitalize(object)+'Store'] = Reflux.createStore({
+_.forEach(Objects, function(object) {
+    exp[_.capitalize(object.name)+'Store'] = Reflux.createStore({
         listenables: [APIActions],
         getInitialState: function() {
-            this.list = APIUtils.getAll(object);
+            this.list = APIutils.getAll(object.name);
             return this.list;
         }
     });

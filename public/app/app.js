@@ -1,24 +1,27 @@
 var React = require('react');
 var Router = require('react-router');
-var Routes = require('./routes.js');
+var Routes = require('./config/routes.js');
 
 // simulating DB
-var API = require('./utils/APIutils.js');
-API.saveLocal("categories", [
+var APIutils = require('./utils/APIutils.js');
+APIutils.saveLocal("categories", [
     {
         _id: 1,
-        name: 'Bar'
+        name: 'Bar',
+        color: '#125454'
     },
     {
         _id: 2,
-        name: 'Musée'
+        name: 'Musée',
+        color: 'red'
     },
     {
         _id: 3,
-        name: 'Restaurant'
+        name: 'Restaurant',
+        color: '#00f'
     }
 ]);
-API.saveLocal("places", [
+APIutils.saveLocal("places", [
     {
         _id: 1,
         name: 'Super endroit'

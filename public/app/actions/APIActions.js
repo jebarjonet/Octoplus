@@ -1,5 +1,5 @@
 var Reflux = require('reflux');
-var APIUtils = require('../utils/APIutils');
+var APIutils = require('../utils/APIutils');
 
 module.exports = Reflux.createActions([
     

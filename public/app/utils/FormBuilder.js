@@ -3,7 +3,6 @@ var addons = require('react/addons');
 var _ = require('lodash');
 var FormData = require('react-form-data');
 
-
 var Form = React.createClass({
     mixins: [ FormData ],
     componentWillMount: function() {
@@ -56,7 +55,7 @@ var Input = React.createClass({
     },
     generateLayout: function(type, params) {
         var cx = React.addons.classSet;
-        params = $.extend(true, {}, params);
+        params = _.cloneDeep(params);
         params.className = cx(params.className);
         var childs = [];
         var framed = true;
