@@ -30,31 +30,34 @@ var List = React.createClass({
     render: function() {
         var self = this;
         return (
-            <table className="table table-hover">
-                {
-                    self.props.list.map(function(object) {
-                        return (
-                            <tr key={object._id}>
-                            {
-                                _.map(self.props.params, function(param) {
-                                    var content = typeof(param) === 'string' ?
-                                        object[param] :
-                                        React.createElement(param.type, replaceDataHolders(object, _.cloneDeep(param.props)));
-                                    return (
-                                        <td>{content}</td>
-                                    );
-                                })
-                            }
-                            <td>
-                                <div className="btn-group btn-group-xs pull-right">
-                                    <Link to={self.props.name + '.edit'} params={{id: 1}} className="btn btn-info">Editer</Link>
-                                </div>
-                            </td>
-                            </tr>
-                        );
-                    })
-                }
-            </table>
+            <div>
+                <h1>{_.capitalize(this.props.title)+' list'}</h1>
+                <table className="table table-hover">
+                    {
+                        self.props.list.map(function(object) {
+                            return (
+                                <tr key={object._id}>
+                                {
+                                    _.map(self.props.params, function(param) {
+                                        var content = typeof(param) === 'string' ?
+                                            object[param] :
+                                            React.createElement(param.type, replaceDataHolders(object, _.cloneDeep(param.props)));
+                                        return (
+                                            <td>{content}</td>
+                                        );
+                                    })
+                                }
+                                <td>
+                                    <div className="btn-group btn-group-xs pull-right">
+                                        <Link to={self.props.name + '.edit'} params={{id: object._id}} className="btn btn-info">Editer</Link>
+                                    </div>
+                                </td>
+                                </tr>
+                            );
+                        })
+                    }
+                </table>
+            </div>
         );
     }
 });

@@ -11,8 +11,14 @@ var GenericLayout = React.createClass({
         if(this.props.name) {
             var name = this.props.name;
             var generatedLinks = {};
-            generatedLinks[name+'.list'] = 'List';
-            generatedLinks[name+'.add'] = 'Add';
+            generatedLinks[name+'.list'] = {
+                name: 'List',
+                icon: 'list'
+            };
+            generatedLinks[name+'.add'] = {
+                name: 'Add',
+                icon: 'add'
+            };
             links = _.assign(generatedLinks, links);
         }
         return {
@@ -25,8 +31,15 @@ var GenericLayout = React.createClass({
                 <div className="col-sm-3 col-md-2">
                     <ul className="nav nav-pills nav-stacked">
                         {
-                            _.map(this.state.links, function(name, link) {
-                                return <li><Link to={link}>{name}</Link></li>;
+                            _.map(this.state.links, function(data, link) {
+                                return (
+                                    <li>
+                                        <Link to={link}>
+                                            <i className={'md md-'+data.icon} style={{marginRight:'6px'}}></i>
+                                            {data.name}
+                                        </Link>
+                                    </li>
+                                );
                             })
                         }
                     </ul>

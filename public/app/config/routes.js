@@ -18,11 +18,12 @@ var routes = (
                 var Layout = require('../components/admin/'+_.capitalize(object.name)+'.react').Layout;
                 var List = require('../components/admin/'+_.capitalize(object.name)+'.react').List;
                 var Add = require('../components/admin/'+_.capitalize(object.name)+'.react').Add;
+                var Edit = require('../components/admin/'+_.capitalize(object.name)+'.react').Edit;
                 return (
                     <Route name={object.name} path={object.name} handler={Layout}>
                         <Route name={object.name + '.list'} path="list" handler={List}/>
                         <Route name={object.name + '.add'} path="add" handler={Add}/>
-                        <Route name={object.name + '.edit'} path="edit/:id" handler={List}/>
+                        <Route name={object.name + '.edit'} path="edit/:id" handler={Edit}/>
                         <DefaultRoute handler={List}/>
                     </Route>
                 );

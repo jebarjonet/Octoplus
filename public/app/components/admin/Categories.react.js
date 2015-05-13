@@ -18,10 +18,10 @@ exp.Layout = React.createClass({
 });
 
 exp.List = React.createClass({
-    mixins: [Reflux.connect(CategoriesStore,'list')],
+    mixins: [Reflux.connect(CategoriesStore, 'list')],
     render: function() {
         return (
-            <GenericList name={object.name} list={this.state.list} params={object.list.params} />
+            <GenericList name={object.name} title={object.friendlyName} list={this.state.list} params={object.list.params} />
         );
     }
 });
@@ -32,6 +32,27 @@ exp.Add = React.createClass({
             <Form
                 title={'Add a '+ object.friendlyName}
                 fields={object.form}
+                onSubmit={this.submit}
+            />
+        );
+    },
+    submit: function(data) {
+        console.log(data);
+    }
+});
+
+exp.Edit = React.createClass({
+    mixins: [Reflux.connectFilter(CategoriesStore, 'element', function(elements) {
+        return elements.filter(function(element) {
+           return element._id === parseInt(this.props.params.id);
+        }.bind(this))[0];
+    })],
+    render: function() {
+        return (
+            <Form
+                title={'Edit a '+object.friendlyName+' : '+this.state.element.name}
+                fields={object.form}
+                data={this.state.element}
                 onSubmit={this.submit}
             />
         );

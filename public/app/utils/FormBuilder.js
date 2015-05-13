@@ -40,8 +40,13 @@ var Form = React.createClass({
                             field.params = {};
                         field.params.name = key;
 
-                        if(this.formData[key])
-                            field.params.defaultValue = this.formData[key];
+                        if(!field.params.defaultValue) {
+                            if(this.formData[key]) {
+                                field.params.defaultValue = this.formData[key];
+                            } else {
+                                field.params.defaultValue = null;
+                            }
+                        }
 
                         return (
                             <div key={key} className="form-group">
@@ -50,7 +55,7 @@ var Form = React.createClass({
                             </div>
                         );
                     }, this):
-                    <p>Ce formulaire n'est pas encore configuré</p>
+                    <p>This form has not been configured yet</p>
                 }
                 {
                     _.size(this.props.fields) > 0 ?

@@ -13,12 +13,12 @@ APIutils.saveLocal("categories", [
     {
         _id: 2,
         name: 'Musée',
-        color: 'red'
+        color: '#ff0000'
     },
     {
         _id: 3,
         name: 'Restaurant',
-        color: '#00f'
+        color: '#898823'
     }
 ]);
 APIutils.saveLocal("places", [
