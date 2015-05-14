@@ -16,32 +16,46 @@ var paths = {
     scss: 'public/assets/scss/**/*.scss',
     css: 'public/assets/css/',
     js: 'public/assets/js/',
+    img: 'public/assets/img/',
     fonts: 'public/assets/fonts/',
     app_js: 'public/app/app.js',
     watch_js: 'public/app/**/*.js',
-    bower: ['bower_components/jquery/dist/jquery.js'],
+    bower: [
+        'bower_components/jquery/dist/jquery.js',
+        'bower_components/leaflet/dist/leaflet.js'
+    ],
     bower_copy_css: [
         'bower_components/bootstrap/dist/css/bootstrap.min.css',
-        'bower_components/material-design-iconic-font/css/material-design-iconic-font.min.css'
+        'bower_components/material-design-iconic-font/css/material-design-iconic-font.min.css',
+        'bower_components/leaflet/dist/leaflet.css'
     ],
     bower_copy_fonts: [
         'bower_components/material-design-iconic-font/fonts/*'
     ]
 };
 
-// Copy Bootstrap CSS file
+// Copy CSS file
 gulp.task('copy_css', function() {
     return gulp.src(paths.bower_copy_css)
         .pipe(plumber())
         .pipe(gulp.dest(paths.css));
 });
 
-// Copy Bootstrap fonts file
+// Copy fonts file
 gulp.task('copy_fonts', function() {
     return gulp.src(paths.bower_copy_fonts)
         .pipe(plumber())
         .pipe(gulp.dest(paths.fonts));
 });
+
+// Copy directories
+gulp.task('copy_directories', function() {
+    gulp.src('bower_components/leaflet/dist/images/*.png')
+        .pipe(plumber())
+        .pipe(gulp.dest(paths.img));
+});
+
+gulp.task('copy', ['copy_css', 'copy_fonts', 'copy_directories']);
 
 // Concat and uglify bower dependencies
 gulp.task('bower', function() {
@@ -95,4 +109,4 @@ gulp.task('watch', function(){
     gulp.watch(paths.watch_js, ['jshint', 'js']);
 });
 
-gulp.task('default', ['copy_css', 'copy_fonts', 'bower', 'jshint', 'scss', 'js', 'watch']);
+gulp.task('default', ['copy', 'bower', 'jshint', 'scss', 'js', 'watch']);

@@ -21,3 +21,10 @@ form {
 		}
 	}
 }
+
+.admin-places-map {
+	&.leaflet-container {
+		height: 200px;
+		overflow: hidden;
+	}
+}

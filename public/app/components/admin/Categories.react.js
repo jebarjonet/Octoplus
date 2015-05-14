@@ -1,9 +1,7 @@
 var React = require('react');
 var Reflux = require('reflux');
 var CategoriesStore = require('../../stores/GenericStore').CategoriesStore;
-var GenericLayout = require('./generics/GenericLayout');
-var GenericList = require('./generics/GenericList');
-var GenericForm = require('./generics/GenericForm');
+var Generics = require('./generics/Generics');
 var model = require('../../config/models').categories;
 
 var exp = {};
@@ -12,7 +10,7 @@ module.exports = exp;
 exp.Layout = React.createClass({
     render: function() {
         return (
-            <GenericLayout model={model} />
+            <Generics.Layout model={model} />
         );
     }
 });
@@ -21,7 +19,7 @@ exp.List = React.createClass({
     mixins: [Reflux.connect(CategoriesStore, 'list')],
     render: function() {
         return (
-            <GenericList model={model} list={this.state.list} />
+            <Generics.List model={model} list={this.state.list} />
         );
     }
 });
@@ -29,7 +27,7 @@ exp.List = React.createClass({
 exp.Add = React.createClass({
     render: function() {
         return (
-            <GenericForm.Add
+            <Generics.Form.Add
                 model={model}
                 onSubmit={this.handleSubmit}
             />
@@ -48,7 +46,7 @@ exp.Edit = React.createClass({
     })],
     render: function() {
         return (
-            <GenericForm.Edit
+            <Generics.Form.Edit
                 model={model}
                 data={this.state.element}
             />
