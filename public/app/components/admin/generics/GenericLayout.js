@@ -8,8 +8,8 @@ var RouteHandler = Router.RouteHandler;
 var GenericLayout = React.createClass({
     getInitialState: function() {
         var links = this.props.links;
-        if(this.props.name) {
-            var name = this.props.name;
+        if(this.props.model.name) {
+            var name = this.props.model.name;
             var generatedLinks = {};
             generatedLinks[name+'.list'] = {
                 name: 'List',

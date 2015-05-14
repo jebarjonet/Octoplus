@@ -1,6 +1,6 @@
 var React = require('react');
 var _ = require('lodash');
-var Objects = require('../config/objects');
+var Models = require('../config/models');
 
 var Router = require('react-router');
 var Link = Router.Link;
@@ -17,8 +17,8 @@ var Home = React.createClass({
                         </div>
                         <ul className="nav navbar-nav">
                             {
-                                _.map(Objects, function(object) {
-                                    return <li><Link to={object.name}>{_.capitalize(object.friendlyName)}</Link></li>;
+                                _.map(Models, function(model) {
+                                    return <li><Link to={model.name}>{_.capitalize(model.friendlyName)}</Link></li>;
                                 })
                             }
                         </ul>

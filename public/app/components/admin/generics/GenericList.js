@@ -3,22 +3,22 @@ var _ = require('lodash');
 var Link = require('react-router').Link;
 
 /**
- * Replace "__value__" in props with the object.value
- * @param  {[type]} object Object containing values
- * @param  {[type]} props  Properties of the object we want to show     
+ * Replace "__value__" in props with the element.value
+ * @param  {[type]} element     Object containing values
+ * @param  {[type]} props       Properties of the object we want to show     
  */
-function replaceDataHolders(object, props) {
+function replaceDataHolders(element, props) {
     if(typeof(props) === 'object') {
         _.forEach(props, function(prop) {
             if(typeof(prop) === 'object')
-                prop = replaceDataHolders(object, prop);
+                prop = replaceDataHolders(element, prop);
         });
     }
 
     _.forEach(props, function(prop, key) {
         if(typeof(prop) !== 'object') {
             props[key] = prop.replace(/__([^_]+)__/, function(match, p) {
-                return object[p];
+                return element[p];
             });
         }
     });
@@ -29,19 +29,20 @@ function replaceDataHolders(object, props) {
 var List = React.createClass({
     render: function() {
         var self = this;
+        var {model, list, ...other} = this.props;
         return (
             <div>
-                <h1>{_.capitalize(this.props.title)+' list'}</h1>
+                <h1>{_.capitalize(model.friendlyName)+' list'}</h1>
                 <table className="table table-hover">
                     {
-                        self.props.list.map(function(object) {
+                        list.map(function(element) {
                             return (
-                                <tr key={object._id}>
+                                <tr key={element._id}>
                                 {
-                                    _.map(self.props.params, function(param) {
+                                    _.map(model.list.params, function(param) {
                                         var content = typeof(param) === 'string' ?
-                                            object[param] :
-                                            React.createElement(param.type, replaceDataHolders(object, _.cloneDeep(param.props)));
+                                            element[param] :
+                                            React.createElement(param.type, replaceDataHolders(element, _.cloneDeep(param.props)));
                                         return (
                                             <td>{content}</td>
                                         );
@@ -49,7 +50,7 @@ var List = React.createClass({
                                 }
                                 <td>
                                     <div className="btn-group btn-group-xs pull-right">
-                                        <Link to={self.props.name + '.edit'} params={{id: object._id}} className="btn btn-info">Editer</Link>
+                                        <Link to={model.name + '.edit'} params={{id: element._id}} className="btn btn-info">Editer</Link>
                                     </div>
                                 </td>
                                 </tr>

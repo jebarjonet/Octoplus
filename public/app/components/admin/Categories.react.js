@@ -1,10 +1,10 @@
 var React = require('react');
 var Reflux = require('reflux');
-var Form = require('../../utils/FormBuilder');
 var CategoriesStore = require('../../stores/GenericStore').CategoriesStore;
 var GenericLayout = require('./generics/GenericLayout');
 var GenericList = require('./generics/GenericList');
-var object = require('../../config/objects').categories;
+var GenericForm = require('./generics/GenericForm');
+var model = require('../../config/models').categories;
 
 var exp = {};
 module.exports = exp;
@@ -12,7 +12,7 @@ module.exports = exp;
 exp.Layout = React.createClass({
     render: function() {
         return (
-            <GenericLayout name={object.name} />
+            <GenericLayout model={model} />
         );
     }
 });
@@ -21,7 +21,7 @@ exp.List = React.createClass({
     mixins: [Reflux.connect(CategoriesStore, 'list')],
     render: function() {
         return (
-            <GenericList name={object.name} title={object.friendlyName} list={this.state.list} params={object.list.params} />
+            <GenericList model={model} list={this.state.list} />
         );
     }
 });
@@ -29,14 +29,13 @@ exp.List = React.createClass({
 exp.Add = React.createClass({
     render: function() {
         return (
-            <Form
-                title={'Add a '+ object.friendlyName}
-                fields={object.form}
-                onSubmit={this.submit}
+            <GenericForm.Add
+                model={model}
+                onSubmit={this.handleSubmit}
             />
         );
     },
-    submit: function(data) {
+    handleSubmit: function(data) {
         console.log(data);
     }
 });
@@ -49,15 +48,10 @@ exp.Edit = React.createClass({
     })],
     render: function() {
         return (
-            <Form
-                title={'Edit a '+object.friendlyName+' : '+this.state.element.name}
-                fields={object.form}
+            <GenericForm.Edit
+                model={model}
                 data={this.state.element}
-                onSubmit={this.submit}
             />
         );
-    },
-    submit: function(data) {
-        console.log(data);
     }
 });

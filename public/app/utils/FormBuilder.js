@@ -26,8 +26,9 @@ var Form = React.createClass({
         // console.log(this.formData);
     },
     render: function() {
+        var fields = _.cloneDeep(this.props.fields);
         return (
-            <form onSubmit={this.submit} onChange={this.updateFormData}>
+            <form onSubmit={this.handleSubmit} onChange={this.updateFormData}>
                 {
                     this.props.title ?
                     <h1>{this.props.title}</h1>:
@@ -35,7 +36,7 @@ var Form = React.createClass({
                 }
                 {
                     _.size(this.props.fields) > 0 ?
-                    _.map(this.props.fields, function(field, key) {
+                    _.map(fields, function(field, key) {
                         if(!field.params)
                             field.params = {};
                         field.params.name = key;
@@ -65,10 +66,12 @@ var Form = React.createClass({
             </form>
         );
     },
-    submit: function(e) {
+    handleSubmit: function(e) {
         var self = this;
         e.preventDefault();
-        this.props.onSubmit(this.formData);
+        if(this.props.onSubmit) {
+            this.props.onSubmit(this.formData);
+        }
     }
 });
 
@@ -80,7 +83,6 @@ var Input = React.createClass({
     },
     generateLayout: function(type, params) {
         var cx = React.addons.classSet;
-        params = _.cloneDeep(params);
         params.className = cx(params.className);
         var childs = [];
         var framed = true;

@@ -3,7 +3,7 @@ var _ = require('lodash');
 var exp = {};
 module.exports = exp;
 
-var model = {
+var empty = {
     name: 'defaultName',
     friendlyName: 'default name',
     layout: {},
@@ -11,7 +11,7 @@ var model = {
     form: {}
 };
 
-exp.categories = _.assign(_.cloneDeep(model), {
+exp.categories = _.assign(_.cloneDeep(empty), {
     name: 'categories',
     friendlyName: 'category',
     list: {
@@ -36,21 +36,32 @@ exp.categories = _.assign(_.cloneDeep(model), {
             }
         },
         color: {
-            type: 'color',
-            label: 'Color',
+            type: 'string',
+            label: 'Hexadecimal color',
             params: {
-                required: true
+                required: true,
+                placeholder: 'ex: ff0000',
+                pattern: '^([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$'
             }
         }
     }
 });
 
-exp.places = _.assign(_.cloneDeep(model), {
+exp.places = _.assign(_.cloneDeep(empty), {
     name: 'places',
     friendlyName: 'place',
     list: {
         params: [
             'name'
         ]
+    },
+    form: {
+        name: {
+            type: 'string',
+            label: 'Name',
+            params: {
+                required: true
+            }
+        }
     }
 });

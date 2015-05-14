@@ -1,7 +1,7 @@
 var React = require('react');
 var Router = require('react-router');
 var _ = require('lodash');
-var Objects = require('../config/objects');
+var Models = require('../config/models');
 
 var DefaultRoute = Router.DefaultRoute;
 var Route = Router.Route;
@@ -14,16 +14,16 @@ var Places = require('../components/admin/Places.react');
 var routes = (
     <Route name="home" path="/" handler={Home}>
         {
-            _.map(Objects, function(object) {
-                var Layout = require('../components/admin/'+_.capitalize(object.name)+'.react').Layout;
-                var List = require('../components/admin/'+_.capitalize(object.name)+'.react').List;
-                var Add = require('../components/admin/'+_.capitalize(object.name)+'.react').Add;
-                var Edit = require('../components/admin/'+_.capitalize(object.name)+'.react').Edit;
+            _.map(Models, function(model) {
+                var Layout = require('../components/admin/'+_.capitalize(model.name)+'.react').Layout;
+                var List = require('../components/admin/'+_.capitalize(model.name)+'.react').List;
+                var Add = require('../components/admin/'+_.capitalize(model.name)+'.react').Add;
+                var Edit = require('../components/admin/'+_.capitalize(model.name)+'.react').Edit;
                 return (
-                    <Route name={object.name} path={object.name} handler={Layout}>
-                        <Route name={object.name + '.list'} path="list" handler={List}/>
-                        <Route name={object.name + '.add'} path="add" handler={Add}/>
-                        <Route name={object.name + '.edit'} path="edit/:id" handler={Edit}/>
+                    <Route name={model.name} path={model.name} handler={Layout}>
+                        <Route name={model.name + '.list'} path="list" handler={List}/>
+                        <Route name={model.name + '.add'} path="add" handler={Add}/>
+                        <Route name={model.name + '.edit'} path="edit/:id" handler={Edit}/>
                         <DefaultRoute handler={List}/>
                     </Route>
                 );
