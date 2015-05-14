@@ -26,7 +26,6 @@
     "lodash": "^3.7.0",
     "morgan": "~1.5.1",
     "react": "^0.13.2",
-    "react-form-data": "^0.2.3",
     "react-router": "^0.13.3",
     "reactify": "^1.1.0",
     "reflux": "^0.2.7",

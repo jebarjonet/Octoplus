@@ -19,7 +19,7 @@ var GenericLayout = React.createClass({
                 name: 'Add',
                 icon: 'add'
             };
-            links = _.assign(generatedLinks, links);
+            links = _.merge({}, generatedLinks, links);
         }
         return {
             links: links

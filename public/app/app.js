@@ -24,7 +24,9 @@ APIutils.saveLocal("categories", [
 APIutils.saveLocal("places", [
     {
         _id: 1,
-        name: 'Super endroit'
+        name: 'Super endroit',
+        lat: '92.226664',
+        lng: '12.645452'
     }
 ]);
 

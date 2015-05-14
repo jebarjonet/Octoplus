@@ -1,5 +1,6 @@
 var React = require('react');
 var Reflux = require('reflux');
+var _ = require('lodash');
 var Form = require('../../utils/FormBuilder');
 var PlacesStore = require('../../stores/GenericStore').PlacesStore;
 var GenericLayout = require('./generics/GenericLayout');
@@ -28,12 +29,34 @@ exp.List = React.createClass({
 });
 
 exp.Add = React.createClass({
+    componentDidMount: function() {
+        // TODO center place on map if has coordinates
+    },
     render: function() {
+        var extendedModel = _.merge({}, model,
+            {
+                form: {
+                    googleFind: {
+                        params: {
+                            onClick: this.handleGoogleFind
+                        }
+                    }
+                }
+            }
+        );
         return (
             <GenericForm.Add
-                model={model}
+                model={extendedModel}
+                onSubmit={this.handleSubmit}
             />
         );
+    },
+    handleGoogleFind: function() {
+        var element = $('form [name="name"]')[0];
+        element.value = 'test';
+    },
+    handleSubmit: function(data) {
+        console.log(data);
     }
 });
 

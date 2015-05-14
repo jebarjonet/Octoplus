@@ -1,17 +1,14 @@
 var React = require('react');
 var addons = require('react/addons');
 var _ = require('lodash');
-var FormData = require('react-form-data');
 
 var Form = React.createClass({
-    mixins: [ FormData ],
     componentWillMount: function() {
         this.formData = this.props.data ?
             this.props.data:
             {};
     },
     componentDidMount: function() {
-        var self = this;
         // Front errors highlighting
         $('form').on('keydown keyup change blur', ':input', function() {
             if($(this).val()) {
@@ -20,10 +17,6 @@ var Form = React.createClass({
                 $(this).removeClass('dirty');
             }
         });
-    },
-    formDataDidChange: function() {
-        // TODO backend error handling
-        // console.log(this.formData);
     },
     render: function() {
         var fields = _.cloneDeep(this.props.fields);
@@ -67,10 +60,20 @@ var Form = React.createClass({
         );
     },
     handleSubmit: function(e) {
-        var self = this;
         e.preventDefault();
+        var rawData = $('form').serializeArray();
+        var formData = {};
+        _.forEach(rawData, function(element) {
+            // for multiple answers (like checkboxes)
+            if(formData[element.name]) {
+                formData[element.name] = [formData[element.name]];
+                formData[element.name].push(element.value);
+            } else {
+                formData[element.name] = element.value;
+            }
+        });
         if(this.props.onSubmit) {
-            this.props.onSubmit(this.formData);
+            this.props.onSubmit(formData);
         }
     }
 });

@@ -11,7 +11,7 @@ var empty = {
     form: {}
 };
 
-exp.categories = _.assign(_.cloneDeep(empty), {
+exp.categories = _.merge({}, empty, {
     name: 'categories',
     friendlyName: 'category',
     list: {
@@ -47,7 +47,7 @@ exp.categories = _.assign(_.cloneDeep(empty), {
     }
 });
 
-exp.places = _.assign(_.cloneDeep(empty), {
+exp.places = _.merge({}, empty, {
     name: 'places',
     friendlyName: 'place',
     list: {
@@ -60,6 +60,29 @@ exp.places = _.assign(_.cloneDeep(empty), {
             type: 'string',
             label: 'Name',
             params: {
+                ref: 'name',
+                required: true
+            }
+        },
+        googleFind: {
+            type: 'button',
+            params: {
+                defaultValue: 'Find this place with Google'
+            }
+        },
+        lat: {
+            type: 'string',
+            label: 'Latitude',
+            params: {
+                ref: 'lat',
+                required: true
+            }
+        },
+        lng: {
+            type: 'string',
+            label: 'Longitude',
+            params: {
+                ref: 'lng',
                 required: true
             }
         }
