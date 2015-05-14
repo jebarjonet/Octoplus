@@ -66,7 +66,9 @@ var Form = React.createClass({
         _.forEach(rawData, function(element) {
             // for multiple answers (like checkboxes)
             if(formData[element.name]) {
-                formData[element.name] = [formData[element.name]];
+                if(typeof formData[element.name] !== 'object') {
+                    formData[element.name] = [formData[element.name]];
+                }
                 formData[element.name].push(element.value);
             } else {
                 formData[element.name] = element.value;

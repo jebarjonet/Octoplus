@@ -59,6 +59,7 @@ var FormTest = React.createClass({
                         params: {
                             choices: {
                                 g: 'Good',
+                                m: 'Medium',
                                 b: 'Bad'
                             }
                         }
