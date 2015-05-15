@@ -20,7 +20,7 @@ var routes = (
                 var Add = require('../components/admin/'+_.capitalize(model.name)+'.react').Add;
                 var Edit = require('../components/admin/'+_.capitalize(model.name)+'.react').Edit;
                 return (
-                    <Route name={model.name} path={model.name} handler={Layout}>
+                    <Route key={model.name} name={model.name} path={model.name} handler={Layout}>
                         <Route name={model.name + '.list'} path="list" handler={List}/>
                         <Route name={model.name + '.add'} path="add" handler={Add}/>
                         <Route name={model.name + '.edit'} path="edit/:id" handler={Edit}/>

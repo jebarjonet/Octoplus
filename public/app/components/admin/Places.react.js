@@ -5,6 +5,7 @@ var Form = require('../../utils/FormBuilder');
 var PlacesStore = require('../../stores/GenericStore').PlacesStore;
 var Generics = require('./generics/Generics');
 var model = require('../../config/models').places;
+var config = require('../../config/config');
 
 var exp = {};
 module.exports = exp;
@@ -41,50 +42,113 @@ var MapInteractionMixin = {
             }
         );
 
-        this.map = React.createElement('div', {
+        this.Map = React.createElement('div', {
             id: 'map',
             style: {
                 height:'200px'
             }
         });
+
+        this.geocoder = new google.maps.Geocoder();
     },
     componentDidMount: function() {
-        // add map
         L.Icon.Default.imagePath = '/assets/img';
         
-        var map = L.map('map', {
-            minZoom: 13,
+        this.map = L.map('map', {
+            minZoom: 1,
             maxZoom: 17,
             zoomControl: false,
             attributionControl: false
         }).setView([48.856874, 2.336285], 13);
 
-        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
-        
-        // TODO center place on map if has coordinates + marker
-        // L.marker([48.856874, 2.336285]).addTo(map); 
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(this.map);
+
+        this.marker = L.marker([48.856874, 2.336285]);
     },
     handleGoogleFind: function() {
-        var element = $('form [name="name"]')[0];
-        element.value = 'test';
+        var self = this;
+        var name = $('form [name="name"]')[0].value + ', France';
+        this.geocoder.geocode({
+                'address': name
+            }, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                var result = results[0];
+                if(result.address_components[0].long_name !== 'Paris') {
+                    // console.log(results);
+                    var latlng = L.latLng(
+                        result.geometry.location.A,
+                        result.geometry.location.F
+                    );
+                    self.setInputsValue([
+                        {
+                            name: 'name',
+                            value: result.address_components[0].long_name
+                        },
+                        {
+                            name: 'address',
+                            value: result.formatted_address
+                        },
+                        {
+                            name: 'lat',
+                            value: latlng.lat
+                        },
+                        {
+                            name: 'lng',
+                            value: latlng.lng
+                        },
+                    ]);
+                    self.setPlaceOnMap(latlng);
+                } else {
+                    console.error('Could not find this place');
+                }
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+        }); 
+    },
+    setPlaceOnMap: function(latlng) {
+        this.marker.setLatLng(latlng);
+        if(!this.map.hasLayer(this.marker)) {
+            this.map.addLayer(this.marker);
+        }
+
+        this.map.setView(latlng, 16, {
+            pan: {
+                animate: true
+            },
+            zoom: {
+                animate: true
+            }
+        });
+    }
+};
+
+var FormManipulationMixin = {
+    setInputsValue: function(list) {
+        var self = this;
+        _.forEach(list, function(e) {
+            self.setInputValue(e.name, e.value);
+        });
+    },
+    setInputValue: function(inputName, value) {
+        $('form [name="'+inputName+'"]')[0].value = value;
     }
 };
 
 exp.Add = React.createClass({
-    mixins: [MapInteractionMixin],
+    mixins: [
+        FormManipulationMixin,
+        MapInteractionMixin
+    ],
     render: function() {
         return (
             <div>
-                {this.map}
+                {this.Map}
                 <Generics.Form.Add
                     model={this.extendedModel}
-                    onSubmit={this.handleSubmit}
                 />
             </div>
         );
-    },
-    handleSubmit: function(data) {
-        console.log(data);
     }
 });
 
@@ -95,12 +159,19 @@ exp.Edit = React.createClass({
                return element._id === parseInt(this.props.params.id);
             }.bind(this))[0];
         }),
+        FormManipulationMixin,
         MapInteractionMixin
     ],
+    componentDidMount: function() {
+        this.setPlaceOnMap([
+            this.state.element.lat,
+            this.state.element.lng
+        ]);
+    },
     render: function() {
         return (
             <div>
-                {this.map}
+                {this.Map}
                 <Generics.Form.Edit
                     model={this.extendedModel}
                     data={this.state.element}

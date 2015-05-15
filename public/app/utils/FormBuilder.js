@@ -1,5 +1,5 @@
 var React = require('react');
-var addons = require('react/addons');
+var classNames = require('classnames');
 var _ = require('lodash');
 
 var Form = React.createClass({
@@ -87,8 +87,7 @@ var Input = React.createClass({
         return React.createElement(type, params, childs);
     },
     generateLayout: function(type, params) {
-        var cx = React.addons.classSet;
-        params.className = cx(params.className);
+        params.className = classNames(params.className);
         var childs = [];
         var framed = true;
 
@@ -178,7 +177,7 @@ var Input = React.createClass({
                         break;
 
                     case 'button':
-                        params.className += cx('btn', 'btn-default');
+                        params.className += classNames('btn', 'btn-default');
                         break;
                 }
 
@@ -191,7 +190,7 @@ var Input = React.createClass({
         
         // class
         if(framed) {
-            params.className += cx('form-control');
+            params.className += classNames('form-control');
         }
 
         if(!childs.length) {

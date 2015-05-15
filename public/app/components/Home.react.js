@@ -18,7 +18,7 @@ var Home = React.createClass({
                         <ul className="nav navbar-nav">
                             {
                                 _.map(Models, function(model) {
-                                    return <li><Link to={model.name}>{_.capitalize(model.friendlyName)}</Link></li>;
+                                    return <li key={model.name}><Link to={model.name}>{_.capitalize(model.friendlyName)}</Link></li>;
                                 })
                             }
                         </ul>

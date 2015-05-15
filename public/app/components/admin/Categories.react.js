@@ -29,12 +29,8 @@ exp.Add = React.createClass({
         return (
             <Generics.Form.Add
                 model={model}
-                onSubmit={this.handleSubmit}
             />
         );
-    },
-    handleSubmit: function(data) {
-        console.log(data);
     }
 });
 

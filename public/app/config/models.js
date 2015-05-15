@@ -20,7 +20,7 @@ exp.categories = _.merge({}, empty, {
             {
                 type: 'div',
                 props: {
-                    style: {height:"20px",width:"20px",backgroundColor:"__color__"},
+                    style: {height:"20px",width:"20px",backgroundColor:"#__color__"},
                     title: '__name__'
                 }
             },
@@ -68,6 +68,14 @@ exp.places = _.merge({}, empty, {
             type: 'button',
             params: {
                 defaultValue: 'Find this place with Google'
+            }
+        },
+        address: {
+            type: 'string',
+            label: 'Address',
+            params: {
+                ref: 'address',
+                required: true
             }
         },
         lat: {

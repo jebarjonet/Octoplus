@@ -32,6 +32,7 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "devDependencies": {
+    "classnames": "^2.1.1",
     "gulp": "^3.8.11",
     "gulp-browserify": "^0.5.1",
     "gulp-cached": "^1.1.0",

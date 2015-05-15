@@ -6,6 +6,10 @@ var Link = Router.Link;
 var RouteHandler = Router.RouteHandler;
 
 var GenericLayout = React.createClass({
+    propTypes: {
+        model: React.PropTypes.object.isRequired,
+        links: React.PropTypes.object        
+    },
     getInitialState: function() {
         var links = this.props.links;
         if(this.props.model.name) {
@@ -33,7 +37,7 @@ var GenericLayout = React.createClass({
                         {
                             _.map(this.state.links, function(data, link) {
                                 return (
-                                    <li>
+                                    <li key={link}>
                                         <Link to={link}>
                                             <i className={'md md-'+data.icon} style={{marginRight:'6px'}}></i>
                                             {data.name}

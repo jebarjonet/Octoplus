@@ -5,6 +5,7 @@ public/assets/css/
 public/assets/img/
 public/assets/fonts/
 public/assets/js/
+public/app/config/config.js
 public/bundle.js
 *~
 *.log

@@ -27,6 +27,10 @@ function replaceDataHolders(element, props) {
 }
 
 var List = React.createClass({
+    propTypes: {
+        model: React.PropTypes.object.isRequired,
+        list: React.PropTypes.array.isRequired
+    },
     render: function() {
         var self = this;
         var {model, list, ...other} = this.props;
@@ -38,21 +42,21 @@ var List = React.createClass({
                         list.map(function(element) {
                             return (
                                 <tr key={element._id}>
-                                {
-                                    _.map(model.list.params, function(param) {
-                                        var content = typeof(param) === 'string' ?
-                                            element[param] :
-                                            React.createElement(param.type, replaceDataHolders(element, _.cloneDeep(param.props)));
-                                        return (
-                                            <td>{content}</td>
-                                        );
-                                    })
-                                }
-                                <td>
-                                    <div className="btn-group btn-group-xs pull-right">
-                                        <Link to={model.name + '.edit'} params={{id: element._id}} className="btn btn-info">Editer</Link>
-                                    </div>
-                                </td>
+                                    {
+                                        _.map(model.list.params, function(param) {
+                                            var content = typeof(param) === 'string' ?
+                                                element[param] :
+                                                React.createElement(param.type, replaceDataHolders(element, _.cloneDeep(param.props)));
+                                            return (
+                                                <td key={element._id + param}>{content}</td>
+                                            );
+                                        })
+                                    }
+                                    <td>
+                                        <div className="btn-group btn-group-xs pull-right">
+                                            <Link to={model.name + '.edit'} params={{id: element._id}} className="btn btn-info">Editer</Link>
+                                        </div>
+                                    </td>
                                 </tr>
                             );
                         })
