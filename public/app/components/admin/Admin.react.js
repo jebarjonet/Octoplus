@@ -22,6 +22,9 @@ var Admin = React.createClass({
                                 })
                             }
                         </ul>
+                        <ul className="nav navbar-nav pull-right">
+                            <li><Link to="home">Back to website</Link></li>
+                        </ul>
                     </div>
                 </nav>
                 <div className="container">

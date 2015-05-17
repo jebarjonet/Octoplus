@@ -22,8 +22,8 @@ var Places = require('../components/admin/Places.react');
 
 var routes = (
     <Route handler={App}>
-        <Route handler={Home}>
-            
+        <Route name="home" path="/" handler={Home}>
+
         </Route>
         <Route name="admin" path="admin" handler={Admin}>
             {

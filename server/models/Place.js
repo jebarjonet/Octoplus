@@ -6,8 +6,19 @@ var PlaceSchema = new Schema({
     name: {
         type: String,
         required: true,
-        trim: true,
         unique: true
+    },
+    address: {
+        type: String,
+        required: true    	
+    },
+    lat: {
+        type: String,
+        required: true
+    },
+    lng: {
+        type: String,
+        required: true
     }
 });
 

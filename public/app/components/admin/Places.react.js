@@ -55,7 +55,7 @@ var MapInteractionMixin = {
         L.Icon.Default.imagePath = '/assets/img';
         
         this.map = L.map('map', {
-            minZoom: 1,
+            minZoom: 10,
             maxZoom: 17,
             zoomControl: false,
             attributionControl: false
