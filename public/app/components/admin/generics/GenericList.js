@@ -54,7 +54,7 @@ var List = React.createClass({
                                     }
                                     <td>
                                         <div className="btn-group btn-group-xs pull-right">
-                                            <Link to={model.name + '.edit'} params={{id: element._id}} className="btn btn-info">Editer</Link>
+                                            <Link to={'admin.' + model.name + '.edit'} params={{id: element._id}} className="btn btn-info">Editer</Link>
                                         </div>
                                     </td>
                                 </tr>

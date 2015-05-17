@@ -2,9 +2,28 @@ var express = require('express');
 var path = require('path');
 var http = require('http');
 var fs = require('fs');
+var mongoose = require('mongoose');
+var parameters = require('./config/parameters');
+var router = express.Router();
 
 var app = express();
 
+
+mongoose.connect('mongodb://localhost/octoplus');
+
+// loading models
+var modelDir = path.join(__dirname, './models');
+fs.readdirSync(modelDir).forEach(function (file) {
+	require(path.join(modelDir, file));
+});
+
+// creating API for each models
+var adminRoutes = require('./routing/admin');
+parameters.apiAdminModels.forEach(function(model) {
+	app.use('/api/'+model.name, adminRoutes);
+});
+
+// public
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.use(function(req, res){

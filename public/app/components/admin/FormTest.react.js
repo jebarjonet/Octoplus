@@ -1,5 +1,5 @@
 var React = require('react');
-var Form = require('../utils/FormBuilder');
+var Form = require('../../utils/FormBuilder');
 
 var FormTest = React.createClass({
     render: function() {

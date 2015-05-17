@@ -15,11 +15,11 @@ var GenericLayout = React.createClass({
         if(this.props.model.name) {
             var name = this.props.model.name;
             var generatedLinks = {};
-            generatedLinks[name+'.list'] = {
+            generatedLinks['admin.'+name+'.list'] = {
                 name: 'List',
                 icon: 'list'
             };
-            generatedLinks[name+'.add'] = {
+            generatedLinks['admin.'+name+'.add'] = {
                 name: 'Add',
                 icon: 'add'
             };

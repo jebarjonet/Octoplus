@@ -1,4 +1,6 @@
-body { padding-top: 70px; }
+.admin {
+	padding-top: 70px;
+}
 
 .nav.nav-pills a.active {
     color: #fff;
@@ -19,12 +21,5 @@ form {
 		&:invalid {
 			border: solid 1px red !important;
 		}
-	}
-}
-
-.admin-places-map {
-	&.leaflet-container {
-		height: 200px;
-		overflow: hidden;
 	}
 }

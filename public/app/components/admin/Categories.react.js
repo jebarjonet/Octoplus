@@ -1,6 +1,6 @@
 var React = require('react');
 var Reflux = require('reflux');
-var CategoriesStore = require('../../stores/GenericStore').CategoriesStore;
+var CategoriesStore = require('../../stores/AdminStore').CategoriesStore;
 var Generics = require('./generics/Generics');
 var model = require('../../config/models').categories;
 

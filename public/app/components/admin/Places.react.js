@@ -2,10 +2,10 @@ var React = require('react');
 var Reflux = require('reflux');
 var _ = require('lodash');
 var Form = require('../../utils/FormBuilder');
-var PlacesStore = require('../../stores/GenericStore').PlacesStore;
+var PlacesStore = require('../../stores/AdminStore').PlacesStore;
 var Generics = require('./generics/Generics');
 var model = require('../../config/models').places;
-var config = require('../../config/config');
+// var parameters = require('../../config/parameters');
 
 var exp = {};
 module.exports = exp;
