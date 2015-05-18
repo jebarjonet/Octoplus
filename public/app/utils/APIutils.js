@@ -3,56 +3,68 @@ var _ = require('lodash');
 var exp = {};
 module.exports = exp;
 
-exp.getAll = function(name, callback) {
+exp.getAll = function(name, callbackValid, callbackError) {
     $.ajax({
         type: 'GET',
         url: '/api/'+name+'/',
         dataType: 'json',
         contentType: "application/json",
-        success: function(data){
-            console.log('DONE');
-            console.log(data);
-            callback(data);
+        success: function(d){
+            callbackValid(d);
         },
-        error: function(data) {
-            console.error('FAIL');
-            console.log(data);
-            console.error(JSON.parse(data.responseText).message);
+        error: function(d) {
+            console.log('GET ALL FAIL');
+            callbackError(d.responseText);
         }
     });
-
-    /*
-    return JSON.parse(localStorage.getItem(name)) ?
-        JSON.parse(localStorage.getItem(name)) :
-        [];
-    */
 };
 
-exp.addLocal = function(name, data) {
-    var list = this.getAll(name);
-    data._id = Math.floor((Math.random() * 1000000000) + 3);
-    list.push(data);
-    localStorage.setItem(name, JSON.stringify(list));
-};
-
-exp.updateLocal = function(name, data) {
-    var list = this.getAll(name);
-    localStorage.removeItem(name);
-    _.forEach(list, function(element, key) {
-        if(element._id === data._id) {
-            list[key] = data;
+exp.add = function(name, data, callbackValid, callbackError) {
+    $.ajax({
+        type: 'POST',
+        url: '/api/'+name+'/',
+        data: JSON.stringify(data),
+        processData: false,
+        dataType: 'json',
+        contentType: "application/json",
+        success: function(d){
+            callbackValid(d);
+        },
+        error: function(d) {
+            console.log('ADD FAIL');
+            callbackError(d.responseText);
         }
     });
-    localStorage.setItem(name, JSON.stringify(list));
 };
 
-exp.save = function(name, data) {
-    if(data._id) {
-        // UPDATE
-        updateLocal(name, data);
-    } else {
-        // ADD
-        addLocal(name, data);
-    }
+exp.edit = function(name, data, callbackValid, callbackError) {
+    $.ajax({
+        type: 'PUT',
+        url: '/api/'+name+'/'+data._id,
+        data: JSON.stringify(data),
+        processData: false,
+        dataType: 'json',
+        contentType: "application/json",
+        success: function(d){
+            callbackValid(d);
+        },
+        error: function(d) {
+            console.log('UPDATE FAIL');
+            callbackError(d.responseText);
+        }
+    });
+};
 
+exp.remove = function(name, data, callbackValid, callbackError) {
+    $.ajax({
+        type: 'DELETE',
+        url: '/api/'+name+'/'+data._id,
+        success: function(d){
+            callbackValid(d);
+        },
+        error: function(d) {
+            console.log('DELETE FAIL');
+            callbackError(d.responseText);
+        }
+    });
 };

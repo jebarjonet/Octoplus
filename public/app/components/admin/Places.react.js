@@ -49,11 +49,11 @@ var MapInteractionMixin = {
             }
         });
 
+        L.Icon.Default.imagePath = '/assets/img';
         this.geocoder = new google.maps.Geocoder();
+        this.marker = L.marker([48.856874, 2.336285]);
     },
     componentDidMount: function() {
-        L.Icon.Default.imagePath = '/assets/img';
-        
         this.map = L.map('map', {
             minZoom: 10,
             maxZoom: 17,
@@ -62,8 +62,6 @@ var MapInteractionMixin = {
         }).setView([48.856874, 2.336285], 13);
 
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(this.map);
-
-        this.marker = L.marker([48.856874, 2.336285]);
     },
     handleGoogleFind: function() {
         var self = this;

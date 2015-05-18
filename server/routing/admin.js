@@ -25,19 +25,21 @@ router.route('/')
 	.post(function(req, res, next) {
 		// ADD object
 		var element = new Model(req.body);
-		element.save(function (err) {
-			if(err){
-	            if(err.name == "ValidationError"){
-	                err.status = 400;
-	                res.status(400).json(err);
-	            } else {
-	                next(err);
-	            }
-	            return false;
-	        }
+		element.save(
+			function (err) {
+				if(err){
+		            if(err.name == "ValidationError"){
+		                err.status = 400;
+		                res.status(400).json(err);
+		            } else {
+		                next(err);
+		            }
+		            return false;
+		        }
 
-			res.send(element);
-		});
+				res.send({});
+			}
+		);
 	});
 
 router.route('/:id')
@@ -53,20 +55,40 @@ router.route('/:id')
 		Model.findOneAndUpdate(
 			{ _id: req.params.id },
 			req.body,
-			function (err) {
-			if(err){
-	            if(err.name == "ValidationError"){
-	                err.status = 400;
-	                res.status(400).json(err);
-	            } else {
-	                next(err);
-	            }
-	            return false;
-	        }
-		});
+			function (err, element) {
+				if(err) {
+		            if(err.name == "ValidationError"){
+		                err.status = 400;
+		                res.status(400).json(err);
+		            } else {
+		                next(err);
+		            }
+		            return false;
+		        }
+
+				res.send({});
+			}
+		);
 	})
 	.delete(function(req, res, next) {
 		// DELETE object
+		Model.findOneAndRemove(
+			{ _id: req.params.id },
+			req.body,
+			function (err) {
+				if(err){
+		            if(err.name == "ValidationError"){
+		                err.status = 400;
+		                res.status(400).json(err);
+		            } else {
+		                next(err);
+		            }
+		            return false;
+		        }
+
+				res.send({});
+			}
+		);
 	});
 
 module.exports = router;

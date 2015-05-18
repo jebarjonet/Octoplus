@@ -177,7 +177,7 @@ var Input = React.createClass({
                         break;
 
                     case 'button':
-                        params.className += classNames('btn', 'btn-default');
+                        params.className = classNames('btn', 'btn-default', params.className);
                         break;
                 }
 

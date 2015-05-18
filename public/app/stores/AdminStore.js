@@ -14,8 +14,21 @@ _.forEach(Models, function(model) {
             this.list = [];
         },
         getInitialState: function() {
-            APIutils.getAll(model.name, this.updateList);
+            APIutils.getAll(model.name, this.updateList, this.error);
             return this.list;
+        },
+        onAddItem: function(name, data, callback) {
+            APIutils.add(name, data, callback, this.error);
+        },
+        onEditItem: function(name, data, callback) {
+            APIutils.edit(name, data, callback, this.error);
+        },
+        onRemoveItem: function(name, data, callback) {
+            APIutils.remove(name, data, callback, this.error);
+        },
+        error: function(text) {
+            // TODO notif error
+            console.error(text);
         },
         updateList: function(data) {
             this.list = data;
