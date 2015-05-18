@@ -8,8 +8,13 @@
 - [Technologies](#technologies)
 - [Form builder](#form-builder)
 - [Generics](#generics)
+    - [Components](#components)
+    - [Store](#store)
+    - [How to add a new object to the administration panel](#how-to-add-a-new-object-to-the-administration-panel)
+    - [List extension example](#list-extension-example)
+    - [Edition extension example](#edition-extension-example)
 - [Possible improvements](#possible-improvements)
-- [Some issues](#some-issues)
+- [Known issues](#known-issues)
 
 ## Technologies
 
@@ -17,7 +22,7 @@
 - [Reflux](https://github.com/spoike/refluxjs)
 - [NodeJS](https://nodejs.org/) - ExpressJS
 - [MongoDB](https://www.mongodb.org/) - Mongoose
-- [Leaflet](http://leafletjs.com) to display maps
+- [Leaflet](http://leafletjs.com)
 
 ## Form builder
 The form builder helps to quickly create a form by giving it a configuration object describing each field we want.
@@ -96,7 +101,7 @@ The AdminStore only has some basic functions calling the API when needed to add,
 - Edit the file `server/config/models.js` to link the Schema you just created to the API
 - Done, let's take a beer
 
-#### List extension example
+### List extension example
 In the `public/app/config/models.js` file to configure the information displayed in the list we can display both basic attributes of an object (such as `name`) or create a more complex element using the `React.createElement()` function. Here we display a squared `div` showing the color of the categories (as an hexadecimal value).
 
 ![Category list](https://cloud.githubusercontent.com/assets/4401230/7685957/a2341002-fd92-11e4-9589-001e4c81d965.png)
@@ -119,12 +124,12 @@ list: {
 ```
 The GenericList component will automatically replace all the values with the format `__VALUE__` by the `object.VALUE`. In this example when we display the line for a category element, `__color__` will be replaced by `element.color`, as the `title` of this div will get the `element.name` value.
 
-#### Editor extension example
+### Edition extension example
 For the Place object the EditForm is extended adding a Map to it thought a custom `MapInteractionMixin` in `public/app/components/admin/Places.react.js`
 
 ![Place editing](https://cloud.githubusercontent.com/assets/4401230/7685959/a836eb1e-fd92-11e4-9290-01e040f930c5.png)
 
-This extension also adds a function binded to the button "Find this place with Google" (which by the way only uses the Google Search API and not the Google Places API, so it wil only find *very** famous places, do not try to find your home or your favorite pub) that places a marker on the map and autocompletes the other fields (as address and geolocation) if a place is found with the searched name.
+This extension also adds a function binded to the button "Find this place with Google" (which by the way only uses the Google Search API and not the Google Places API, so it wil only find **very** famous places, do not try to find your home or your favorite pub) that places a marker on the map and autocompletes the other fields (as address and geolocation) if a place is found with the searched name.
 
 ## Possible improvements
 - Display errors using notifications instead of the console
@@ -132,5 +137,5 @@ This extension also adds a function binded to the button "Find this place with G
 - Clean code
 - Find a purpose for all that thing
 
-## Some issues
+## Known issues
 - Leaflet map sometimes not loading
