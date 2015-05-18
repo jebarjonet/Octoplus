@@ -1,4 +1,0 @@
-var exp = {};
-module.exports = exp;
-
-exp.googleApiKey = 'API_KEY';
