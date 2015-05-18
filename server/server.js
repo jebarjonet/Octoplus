@@ -3,11 +3,16 @@ var path = require('path');
 var http = require('http');
 var fs = require('fs');
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
+var logger = require('morgan');
 var parameters = require('./config/parameters');
 var router = express.Router();
 
 var app = express();
 
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 mongoose.connect('mongodb://localhost/octoplus');
 

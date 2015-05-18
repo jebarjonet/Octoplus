@@ -3,10 +3,29 @@ var _ = require('lodash');
 var exp = {};
 module.exports = exp;
 
-exp.getAll = function(name) {
+exp.getAll = function(name, callback) {
+    $.ajax({
+        type: 'GET',
+        url: '/api/'+name+'/',
+        dataType: 'json',
+        contentType: "application/json",
+        success: function(data){
+            console.log('DONE');
+            console.log(data);
+            callback(data);
+        },
+        error: function(data) {
+            console.error('FAIL');
+            console.log(data);
+            console.error(JSON.parse(data.responseText).message);
+        }
+    });
+
+    /*
     return JSON.parse(localStorage.getItem(name)) ?
         JSON.parse(localStorage.getItem(name)) :
         [];
+    */
 };
 
 exp.addLocal = function(name, data) {

@@ -15,25 +15,57 @@ router.use(function(req, res, next) {
 });
 
 router.route('/')
-	.get(function(req, res) {
+	.get(function(req, res, next) {
 		// GET all objects
 		Model.find(function(err, elements){
 		    if(err) return next(err);
 		    res.send(elements);
 		})
 	})
-	.post(function(req, res) {
+	.post(function(req, res, next) {
 		// ADD object
+		var element = new Model(req.body);
+		element.save(function (err) {
+			if(err){
+	            if(err.name == "ValidationError"){
+	                err.status = 400;
+	                res.status(400).json(err);
+	            } else {
+	                next(err);
+	            }
+	            return false;
+	        }
+
+			res.send(element);
+		});
 	});
 
 router.route('/:id')
-	.get(function(req, res) {
+	.get(function(req, res, next) {
 		// GET object
+		Model.findById(req.params.id, function (err, element){
+			if(err) return next(err);
+		    res.send(element);
+		});
 	})
-	.put(function(req, res) {
+	.put(function(req, res, next) {
 		// UPDATE object
+		Model.findOneAndUpdate(
+			{ _id: req.params.id },
+			req.body,
+			function (err) {
+			if(err){
+	            if(err.name == "ValidationError"){
+	                err.status = 400;
+	                res.status(400).json(err);
+	            } else {
+	                next(err);
+	            }
+	            return false;
+	        }
+		});
 	})
-	.delete(function(req, res) {
+	.delete(function(req, res, next) {
 		// DELETE object
 	});
 

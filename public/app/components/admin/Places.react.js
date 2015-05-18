@@ -156,17 +156,19 @@ exp.Edit = React.createClass({
     mixins: [
         Reflux.connectFilter(PlacesStore, 'element', function(elements) {
             return elements.filter(function(element) {
-               return element._id === parseInt(this.props.params.id);
+               return element._id === this.props.params.id;
             }.bind(this))[0];
         }),
         FormManipulationMixin,
         MapInteractionMixin
     ],
-    componentDidMount: function() {
-        this.setPlaceOnMap([
-            this.state.element.lat,
-            this.state.element.lng
-        ]);
+    componentWillUpdate: function(nextProps, nextState) {
+        if(nextState.element) {
+            this.setPlaceOnMap([
+                nextState.element.lat,
+                nextState.element.lng
+            ]);
+        }
     },
     render: function() {
         return (

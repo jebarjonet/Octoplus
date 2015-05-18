@@ -38,29 +38,31 @@ var List = React.createClass({
             <div>
                 <h1>{_.capitalize(model.friendlyName)+' list'}</h1>
                 <table className="table table-hover">
-                    {
-                        list.map(function(element) {
-                            return (
-                                <tr key={element._id}>
-                                    {
-                                        _.map(model.list.params, function(param) {
-                                            var content = typeof(param) === 'string' ?
-                                                element[param] :
-                                                React.createElement(param.type, replaceDataHolders(element, _.cloneDeep(param.props)));
-                                            return (
-                                                <td key={element._id + param}>{content}</td>
-                                            );
-                                        })
-                                    }
-                                    <td>
-                                        <div className="btn-group btn-group-xs pull-right">
-                                            <Link to={'admin.' + model.name + '.edit'} params={{id: element._id}} className="btn btn-info">Editer</Link>
-                                        </div>
-                                    </td>
-                                </tr>
-                            );
-                        })
-                    }
+                    <tbody>
+                        {
+                            list.map(function(element) {
+                                return (
+                                    <tr key={element._id}>
+                                        {
+                                            _.map(model.list.params, function(param) {
+                                                var content = typeof(param) === 'string' ?
+                                                    element[param] :
+                                                    React.createElement(param.type, replaceDataHolders(element, _.cloneDeep(param.props)));
+                                                return (
+                                                    <td key={element._id + param}>{content}</td>
+                                                );
+                                            })
+                                        }
+                                        <td>
+                                            <div className="btn-group btn-group-xs pull-right">
+                                                <Link to={'admin.' + model.name + '.edit'} params={{id: element._id}} className="btn btn-info">Editer</Link>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                );
+                            })
+                        }
+                    </tbody>
                 </table>
             </div>
         );

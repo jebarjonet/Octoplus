@@ -37,10 +37,10 @@ exp.Add = React.createClass({
 exp.Edit = React.createClass({
     mixins: [Reflux.connectFilter(CategoriesStore, 'element', function(elements) {
         return elements.filter(function(element) {
-           return element._id === parseInt(this.props.params.id);
+            return element._id === this.props.params.id;
         }.bind(this))[0];
     })],
-    render: function() {
+    render: function() {        
         return (
             <Generics.Form.Edit
                 model={model}
