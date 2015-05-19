@@ -32,11 +32,11 @@
     - bower
     - gulp
     - nodemon
-- run `bower install`
-- run `npm install`
-- run `gulp` (it has a watcher on this default command, but once everything has been compiled at least one time you can kill it)
-- run `nodemon`
-- go to `http://localhost:3000`
+- Run `bower install`
+- Run `npm install`
+- Run `gulp` (it has a watcher on this default command, but once everything has been compiled at least one time you can kill it)
+- Run `nodemon`
+- Go to `http://localhost:3000`
 
 ## Form builder
 The form builder helps to quickly create a form by giving it a configuration object describing each field we want.
@@ -102,7 +102,7 @@ The full code giving the following image is [here](https://github.com/jebarjonet
 The whole administration panel is made of very few files since the purpose of this project was to create a very generic structure, because of the repetitive layout of each object we want to manipulate : List them, add a new, edit and remove.
 
 ### Components
-All generic components are stored in `public/app/components/admin/generic/`. Then each new object has its own file extending the generic structure.
+All generic components are stored in `public/app/components/admin/generics/`. Then each new object has its own file extending the generic structure.
 
 ### Store
 The AdminStore only has some basic functions calling the API when needed to add, update or remove an object. It auto-loops over the list of models we configured to create a unique store for each of them. As an example a store for the `categories` item will be reachable with `var CategoriesStore = require('../stores/AdminStore.js').CategoriesStore`
@@ -139,11 +139,11 @@ list: {
 The GenericList component will automatically replace all the values with the format `__VALUE__` by the `object.VALUE`. In this example when we display the line for a category element, `__color__` will be replaced by `element.color`, as the `title` of this div will get the `element.name` value.
 
 ### Edition extension example
-For the Place object the EditForm is extended adding a Map to it thought a custom `MapInteractionMixin` in `public/app/components/admin/Places.react.js`
+For the Place object the EditForm is extended adding a Map to it through a custom `MapInteractionMixin` in `public/app/components/admin/Places.react.js`
 
 ![Place editing](https://cloud.githubusercontent.com/assets/4401230/7685959/a836eb1e-fd92-11e4-9290-01e040f930c5.png)
 
-This extension also adds a function binded to the button "Find this place with Google" (which by the way only uses the Google Search API and not the Google Places API, so it wil only find **very** famous places, do not try to find your home or your favorite pub) that places a marker on the map and autocompletes the other fields (as address and geolocation) if a place is found with the searched name.
+This extension also adds a function binded to the button "Find this place with Google" (which by the way only uses the Google Search API and not the Google Places API, so it will only find **very** famous places, do not try to find your home or your favorite pub) that places a marker on the map and autocompletes the other fields (as address and geolocation) if a place is found with the searched name.
 
 ## Possible improvements
 - Display errors using notifications instead of the console
