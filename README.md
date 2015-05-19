@@ -6,6 +6,7 @@
 ## Content
 
 - [Technologies](#technologies)
+- [Installation](#installation)
 - [Form builder](#form-builder)
 - [Generics](#generics)
     - [Components](#components)
@@ -22,7 +23,20 @@
 - [Reflux](https://github.com/spoike/refluxjs)
 - [NodeJS](https://nodejs.org/) - ExpressJS
 - [MongoDB](https://www.mongodb.org/) - Mongoose
+- [Gulp](http://gulpjs.com/)
 - [Leaflet](http://leafletjs.com)
+
+## Installation
+- Make sure you are running NodeJS and MongoDB
+- Make sure you installed those dependencies globally :
+    - bower
+    - gulp
+    - nodemon
+- run `bower install`
+- run `npm install`
+- run `gulp` (it has a watcher on this default command, but once everything has been compiled at least one time you can kill it)
+- run `nodemon`
+- go to `http://localhost:3000`
 
 ## Form builder
 The form builder helps to quickly create a form by giving it a configuration object describing each field we want.
